@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buku Kas + Order WhatsApp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div>
+        <div class="brand">BukuKas<span>+</span></div>
+        <small id="businessName">UMKM</small>
+      </div>
+      <button id="refreshBtn" class="icon-btn" title="Refresh">↻</button>
+    </header>
+
+    <main>
+      <section id="dashboard" class="page active">
+        <div class="page-head">
+          <div><h1>Dashboard</h1><p id="todayText"></p></div>
+        </div>
+
+        <div class="cards">
+          <div class="stat income"><span>Omzet</span><strong id="totalIncome">Rp0</strong></div>
+          <div class="stat expense"><span>Pengeluaran</span><strong id="totalExpense">Rp0</strong></div>
+          <div class="stat profit"><span>Laba</span><strong id="totalProfit">Rp0</strong></div>
+          <div class="stat orders"><span>Order</span><strong id="totalOrders">0</strong></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title"><h2>Transaksi Terbaru</h2><button class="text-btn" onclick="showPage('kas')">Lihat semua</button></div>
+          <div id="recentTransactions" class="list"></div>
+        </div>
+      </section>
+
+      <section id="kas" class="page">
+        <div class="page-head">
+          <div><h1>Buku Kas</h1><p>Catat pemasukan dan pengeluaran.</p></div>
+          <button class="primary" onclick="openTransactionModal()">+ Transaksi</button>
+        </div>
+        <div class="toolbar">
+          <select id="kasFilter" onchange="renderTransactions()">
+            <option value="all">Semua</option><option value="income">Pemasukan</option><option value="expense">Pengeluaran</option>
+          </select>
+          <input id="kasSearch" placeholder="Cari transaksi..." oninput="renderTransactions()">
+        </div>
+        <div class="panel"><div id="transactionList" class="list"></div></div>
+      </section>
+
+      <section id="order" class="page">
+        <div class="page-head">
+          <div><h1>Order WhatsApp</h1><p>Buat pesanan dan kirim langsung ke WhatsApp.</p></div>
+          <button class="primary" onclick="openOrderModal()">+ Order</button>
+        </div>
+        <div class="panel"><div id="orderList" class="list"></div></div>
+      </section>
+
+      <section id="products" class="page">
+        <div class="page-head">
+          <div><h1>Produk</h1><p>Kelola katalog dan harga.</p></div>
+          <button class="primary" onclick="openProductModal()">+ Produk</button>
+        </div>
+        <div class="panel"><div id="productList" class="product-grid"></div></div>
+      </section>
+
+      <section id="customers" class="page">
+        <div class="page-head">
+          <div><h1>Pelanggan</h1><p>Database pelanggan UMKM.</p></div>
+          <button class="primary" onclick="openCustomerModal()">+ Pelanggan</button>
+        </div>
+        <div class="panel"><div id="customerList" class="list"></div></div>
+      </section>
+
+      <section id="settings" class="page">
+        <div class="page-head"><div><h1>Pengaturan</h1><p>Konfigurasi toko.</p></div></div>
+        <div class="panel form">
+          <label>Nama Usaha<input id="settingBusiness" placeholder="Contoh: Roti Maryam Yaps"></label>
+          <label>Nomor WhatsApp Admin<input id="settingPhone" placeholder="628xxxxxxxxxx"></label>
+          <label>Mata Uang<input value="IDR" disabled></label>
+          <button class="primary" onclick="saveSettings()">Simpan Pengaturan</button>
+          <p class="hint">Nomor WhatsApp gunakan format internasional tanpa tanda +, contoh 628123456789.</p>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav active" data-page="dashboard">⌂<span>Home</span></button>
+      <button class="nav" data-page="kas">▣<span>Kas</span></button>
+      <button class="nav" data-page="order">🛒<span>Order</span></button>
+      <button class="nav" data-page="products">☷<span>Produk</span></button>
+      <button class="nav" data-page="customers">♙<span>Pelanggan</span></button>
+    </nav>
+  </div>
+
+  <div id="modal" class="modal hidden"><div class="modal-box"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
+  <div id="toast" class="toast"></div>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
